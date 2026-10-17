@@ -3,12 +3,14 @@ import AddUser from "./components/AddUser/AddUser";
 import UserList from "./components/UserList/UserList";
 import Main from "./components/Main/Main";
 import Home from "./components/Home/Home";
+import UserProvider from "./contexts/UserProvider";
 function App() {
 
 
   return (
     <>
   
+  <UserProvider>
      <BrowserRouter>
      
      <Routes>
@@ -23,6 +25,7 @@ function App() {
      </Routes>
      
      </BrowserRouter>
+     </UserProvider>
     </>
   )
 }
