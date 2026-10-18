@@ -1,5 +1,5 @@
 import { createContext, useContext ,useState} from "react"
-import { addUser } from "../services/apiService";
+import { addUser , getUsers} from "../services/apiService";
 function UserProvider({children}){
 
     const [newUsername,setNewUsername]=useState("");
@@ -48,7 +48,7 @@ function UserProvider({children}){
     const submitHandler=async(event,controller)=>{
         event.preventDefault();
         checkValues()
-        if(error.length < 1){
+        if(Object.keys(error) < 1){
             try{
                 await addUser(setNewUser(),controller)
                 clearInputs();
@@ -58,15 +58,27 @@ function UserProvider({children}){
                 }
                 console.log(err.message);
             }
-        }else{
-            console.log(error);
-            
         }
 
     }
+
+
+
+
+    const getUsersService=async(controller)=>{
+        try{
+        const users=await getUsers(controller);
+        return users
+        }catch(err){
+            if(err.name==="AbortError"){
+                return;
+            }
+            console.log(err)
+        }
+    }
     
     return(
-         <UserContext.Provider value={{newUsername,newPassword,newAge,newGender,checkValues,submitHandler,setNewUsername,setNewPassword,setNewAge,setNewGander,addUserError}}>
+         <UserContext.Provider value={{getUsersService,newUsername,newPassword,newAge,newGender,checkValues,submitHandler,setNewUsername,setNewPassword,setNewAge,setNewGander,addUserError}}>
 {children}
     </UserContext.Provider>)
 }

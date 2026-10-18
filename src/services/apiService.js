@@ -23,7 +23,7 @@
     if(!response.ok){
         throw new Error("Add User Failed");
     }
-    return addUser 
+     return;
  }
 
  export {getUsers , addUser}

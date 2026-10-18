@@ -5,7 +5,7 @@ function Home(){
     <>
     
     <Link to="/AddUser">Add New User!</Link>
-     <Link to="UserList">Show User List!</Link>
+     <Link to="/UserList">Show User List!</Link>
     </>
     )
 }
