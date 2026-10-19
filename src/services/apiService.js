@@ -26,4 +26,16 @@
      return;
  }
 
- export {getUsers , addUser}
+
+ const deleteUser=async(userId,controller)=>{
+    const response= await fetch(`${baseURL}/${userId}.json`,{
+        signal:controller.signal,
+        method:"DELETE"
+    });
+    if(!response.ok){
+        throw new Error("delete user failed");
+    }
+    return
+ }
+
+ export {getUsers , addUser , deleteUser}

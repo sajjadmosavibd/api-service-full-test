@@ -1,5 +1,5 @@
 import { createContext, useContext ,useState} from "react"
-import { addUser , getUsers} from "../services/apiService";
+import { addUser , getUsers , deleteUser} from "../services/apiService";
 function UserProvider({children}){
 
     const [newUsername,setNewUsername]=useState("");
@@ -7,7 +7,7 @@ function UserProvider({children}){
     const [newAge,setNewAge]=useState(0);
     const [newGender,setNewGander]=useState("");
     const [addUserError,setAddUserError]=useState([]);
-    const error=[]
+    const error={}
     const checkValues=()=>{
         
         if([...newUsername].length < 8){
@@ -48,7 +48,7 @@ function UserProvider({children}){
     const submitHandler=async(event,controller)=>{
         event.preventDefault();
         checkValues()
-        if(Object.keys(error) < 1){
+        if(Object.keys(error).length < 1){
             try{
                 await addUser(setNewUser(),controller)
                 clearInputs();
@@ -76,9 +76,20 @@ function UserProvider({children}){
             console.log(err)
         }
     }
+
+    const deleteUserHandler=async(userId,controller)=>{
+        try{
+            await deleteUser(userId,controller)
+        }catch(err){
+            if(err.name==="AbortError"){
+                return
+            }
+            console.log(err.message)
+        }
+    }
     
     return(
-         <UserContext.Provider value={{getUsersService,newUsername,newPassword,newAge,newGender,checkValues,submitHandler,setNewUsername,setNewPassword,setNewAge,setNewGander,addUserError}}>
+         <UserContext.Provider value={{deleteUserHandler,getUsersService,newUsername,newPassword,newAge,newGender,checkValues,submitHandler,setNewUsername,setNewPassword,setNewAge,setNewGander,addUserError}}>
 {children}
     </UserContext.Provider>)
 }
