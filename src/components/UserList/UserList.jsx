@@ -7,9 +7,9 @@ function UserList(){
     const [users,setUsers]=useState([])
     const getUsers=async(controller)=>{
      const data=await getUsersService(controller);
-    if (data) {
-  setUsers(Object.entries(data));
-}
+    
+  setUsers( data ? Object.entries(data) :[]);
+
     }
     useEffect(()=>{
         

@@ -17,7 +17,9 @@
     const response=await fetch(`${baseURL}/users.json`,{
         signal:controller.signal,
         method:"POST",
-        headers:{"Content-Type":"Application/json"},
+        headers:{
+            "Content-Type":"Application/json"
+        },
         body:JSON.stringify(user)
     });
     if(!response.ok){
@@ -28,7 +30,7 @@
 
 
  const deleteUser=async(userId,controller)=>{
-    const response= await fetch(`${baseURL}/${userId}.json`,{
+    const response= await fetch(`${baseURL}/users/${userId}.json`,{
         signal:controller.signal,
         method:"DELETE"
     });

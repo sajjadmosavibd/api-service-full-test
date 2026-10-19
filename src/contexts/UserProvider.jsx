@@ -79,7 +79,8 @@ function UserProvider({children}){
 
     const deleteUserHandler=async(userId,controller)=>{
         try{
-            await deleteUser(userId,controller)
+            await deleteUser(userId,controller);
+            window.location.reload();
         }catch(err){
             if(err.name==="AbortError"){
                 return
