@@ -4,6 +4,7 @@ import UserList from "./components/UserList/UserList";
 import Main from "./components/Main/Main";
 import Home from "./components/Home/Home";
 import UserProvider from "./contexts/UserProvider";
+import EditUserPage from "./components/EditUserPage/EditUserPage"
 function App() {
 
 
@@ -19,6 +20,8 @@ function App() {
 <Route index element={<Home />} />
       <Route  path="AddUser" element={<AddUser />} />
       <Route path="UserLIst" element={<UserList />} />
+      <Route path="edit/:id" element={<EditUserPage />}/>
+     
 
       </Route>
       

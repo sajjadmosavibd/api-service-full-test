@@ -4,8 +4,8 @@ function Home(){
     return(
     <>
     
-    <Link to="/AddUser">Add New User!</Link>
-     <Link to="/UserList">Show User List!</Link>
+    <Link to="AddUser">Add New User!</Link>
+     <Link to="UserList">Show User List!</Link>
     </>
     )
 }

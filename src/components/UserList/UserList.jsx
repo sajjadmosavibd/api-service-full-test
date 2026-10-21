@@ -2,6 +2,7 @@ import { useContext, useEffect ,useState} from "react"
 import EdtiUser from "../EditUser/EditUser";
 import DeleteUser from "../DeleteUser/DeleteUser";
 import { UserContext } from "../../contexts/UserProvider"
+import { Link } from "react-router-dom";
 function UserList(){
     const {getUsersService}=useContext(UserContext);
     const [users,setUsers]=useState([])
@@ -26,7 +27,8 @@ function UserList(){
             <p>{user[1].password}</p>
             <p>{user[1].age}</p>
             <p>{user[1].gender}</p>
-            <EdtiUser userId={user[0]} />
+            <Link to={`/edit/${user[0]}`}> Edti User </Link>
+            
             <DeleteUser  userId={user[0]} />
             <br></br>
             <br></br>

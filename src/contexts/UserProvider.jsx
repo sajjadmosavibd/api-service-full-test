@@ -1,12 +1,16 @@
 import { createContext, useContext ,useState} from "react"
-import { addUser , getUsers , deleteUser} from "../services/apiService";
+import { addUser , getUsers , deleteUser ,findEditingUser} from "../services/apiService";
 function UserProvider({children}){
 
     const [newUsername,setNewUsername]=useState("");
     const [newPassword,setNewPassword]=useState("");
     const [newAge,setNewAge]=useState(0);
     const [newGender,setNewGander]=useState("");
-    const [addUserError,setAddUserError]=useState([]);
+    const [addUserError,setAddUserError]=useState({});
+    const [editedUsername,setEditedUsername]=useState("")
+    const [editedPassword,setEditedPassword]=useState("")
+    const [editedAge,setEditedAge]=useState(0)
+    const [editedGender,setEditedGender]=useState(0)
     const error={}
     const checkValues=()=>{
         
@@ -90,7 +94,8 @@ function UserProvider({children}){
     }
     
     return(
-         <UserContext.Provider value={{deleteUserHandler,getUsersService,newUsername,newPassword,newAge,newGender,checkValues,submitHandler,setNewUsername,setNewPassword,setNewAge,setNewGander,addUserError}}>
+         <UserContext.Provider value={{editedAge,editedGender,editedPassword,editedUsername,setEditedAge,setEditedGender,setEditedPassword,setEditedUsername,
+         findEditingUser,deleteUserHandler,getUsersService,newUsername,newPassword,newAge,newGender,checkValues,submitHandler,setNewUsername,setNewPassword,setNewAge,setNewGander,addUserError}}>
 {children}
     </UserContext.Provider>)
 }

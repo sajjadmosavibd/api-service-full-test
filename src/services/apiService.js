@@ -40,4 +40,29 @@
     return
  }
 
- export {getUsers , addUser , deleteUser}
+ const findEditingUser=async(controller,userId)=>{
+    const response= await fetch(`${baseURL}/users/${userId}.json`,{
+        signal:controller.signal,
+    })
+    if(!response.ok){
+        throw new Error("find user failed")
+    }
+    const data=await response.json();
+    return data
+ }
+
+ const editUser=async(controller,user,userId)=>{
+    const response= await fetch(`${baseURL}/users/${userId}.json`,{
+        signal:controller.signal,
+        headers:{
+            "Content-Type":"Application/json"
+        },
+        body:JSON.stringify(user),
+        method:"PUT"
+    })
+    if(!response.ok){
+        throw new Error("edit user failed")
+    }
+ }
+
+ export {getUsers , addUser , deleteUser ,findEditingUser , editUser}

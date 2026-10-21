@@ -10,7 +10,7 @@ function AddUser(){
     },[])
     const {newUsername,newPassword,newAge,newGender,checkValues,submitHandler,setNewUsername,setNewPassword,setNewAge,setNewGander,addUserError}=useContext(UserContext);
     return(
-        <form onSubmit={()=>submitHandler(event,controller)}>
+        <form onSubmit={(event)=>submitHandler(event,controller)}>
         <label  htmlFor="add-username"> enter username : </label>
         <input value={newUsername} onChange={(event)=>setNewUsername(event.target.value)} id="add-username" placeholder="sajjad ..." />
         {addUserError.username && <p>{addUserError.username}</p>}
