@@ -1,5 +1,5 @@
 import { createContext, useContext ,useState} from "react"
-import { addUser , getUsers , deleteUser ,findEditingUser} from "../services/apiService";
+import { addUser , getUsers , deleteUser ,getUserById} from "../services/apiService";
 function UserProvider({children}){
 
     const [newUsername,setNewUsername]=useState("");
@@ -10,7 +10,8 @@ function UserProvider({children}){
     const [editedUsername,setEditedUsername]=useState("")
     const [editedPassword,setEditedPassword]=useState("")
     const [editedAge,setEditedAge]=useState(0)
-    const [editedGender,setEditedGender]=useState(0)
+    const [editedGender,setEditedGender]=useState("")
+    const [isReload,setIsReload]=useState(false);
     const error={}
     const checkValues=()=>{
         
@@ -84,7 +85,7 @@ function UserProvider({children}){
     const deleteUserHandler=async(userId,controller)=>{
         try{
             await deleteUser(userId,controller);
-            window.location.reload();
+           
         }catch(err){
             if(err.name==="AbortError"){
                 return
@@ -94,8 +95,8 @@ function UserProvider({children}){
     }
     
     return(
-         <UserContext.Provider value={{editedAge,editedGender,editedPassword,editedUsername,setEditedAge,setEditedGender,setEditedPassword,setEditedUsername,
-         findEditingUser,deleteUserHandler,getUsersService,newUsername,newPassword,newAge,newGender,checkValues,submitHandler,setNewUsername,setNewPassword,setNewAge,setNewGander,addUserError}}>
+         <UserContext.Provider value={{isReload,setIsReload,editedAge,editedGender,editedPassword,editedUsername,setEditedAge,setEditedGender,setEditedPassword,setEditedUsername,
+         getUserById,deleteUserHandler,getUsersService,newUsername,newPassword,newAge,newGender,checkValues,submitHandler,setNewUsername,setNewPassword,setNewAge,setNewGander,addUserError}}>
 {children}
     </UserContext.Provider>)
 }

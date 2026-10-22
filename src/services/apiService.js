@@ -18,7 +18,7 @@
         signal:controller.signal,
         method:"POST",
         headers:{
-            "Content-Type":"Application/json"
+            "Content-Type":"application/json"
         },
         body:JSON.stringify(user)
     });
@@ -40,7 +40,7 @@
     return
  }
 
- const findEditingUser=async(controller,userId)=>{
+ const getUserById=async(controller,userId)=>{
     const response= await fetch(`${baseURL}/users/${userId}.json`,{
         signal:controller.signal,
     })
@@ -55,7 +55,7 @@
     const response= await fetch(`${baseURL}/users/${userId}.json`,{
         signal:controller.signal,
         headers:{
-            "Content-Type":"Application/json"
+            "Content-Type":"application/json"
         },
         body:JSON.stringify(user),
         method:"PUT"
@@ -65,4 +65,4 @@
     }
  }
 
- export {getUsers , addUser , deleteUser ,findEditingUser , editUser}
+ export {getUsers , addUser , deleteUser ,getUserById , editUser}

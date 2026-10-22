@@ -1,10 +1,10 @@
 import { useContext, useEffect ,useState} from "react"
-import EdtiUser from "../EditUser/EditUser";
+
 import DeleteUser from "../DeleteUser/DeleteUser";
 import { UserContext } from "../../contexts/UserProvider"
 import { Link } from "react-router-dom";
 function UserList(){
-    const {getUsersService}=useContext(UserContext);
+    const {getUsersService,isReload}=useContext(UserContext);
     const [users,setUsers]=useState([])
     const getUsers=async(controller)=>{
      const data=await getUsersService(controller);
@@ -16,10 +16,10 @@ function UserList(){
         
         const ctrl=new AbortController();
        getUsers(ctrl)
-
+       
        return()=> ctrl.abort()
         
-    },[])
+    },[isReload])
     return(
         <>
         {users.map(user=><div key={user[0]}>

@@ -1,19 +1,36 @@
-import { useContext ,useEffect,useState} from "react";
-import { UserContext } from "../../contexts/UserProvider";
-function DeleteUser({userId}){
-const {deleteUserHandler}=useContext(UserContext);
-const [controller,setController]=useState()
-useEffect(()=>{
-const ctrl=new AbortController();
-setController(ctrl);
 
-return()=> ctrl.abort()
-},[])
-    return(
-        <button onClick={async()=>{ await deleteUserHandler(userId,controller)}} >
-        Delete User !
-        </button>
-    )
+import { useContext, useRef } from "react";
+import { UserContext } from "../../contexts/UserProvider";
+
+function DeleteUser({ userId }) {
+  const { deleteUserHandler, setIsReload, isReload } =
+    useContext(UserContext);
+
+  const controllerRef = useRef(null);
+
+  const handleDelete = async () => {
+    const controller = new AbortController();
+    controllerRef.current = controller;
+
+    try {
+      const success = await deleteUserHandler(
+        userId,
+        controller
+      );
+
+      if (success) {
+        setIsReload((prev) => !prev);
+      }
+    } finally {
+      controllerRef.current = null;
+    }
+  };
+
+  return (
+    <button onClick={handleDelete}>
+      Delete User
+    </button>
+  );
 }
 
-export default DeleteUser
+export default DeleteUser;

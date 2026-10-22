@@ -1,11 +1,12 @@
-import { useParams } from "react-router-dom"
-import { useEffect ,useContext } from "react";
+import { useParams ,useNavigate} from "react-router-dom"
+import { useEffect ,useContext  } from "react";
+
 import { UserContext } from "../../contexts/UserProvider";
-import { findEditingUser , editUser } from "../../services/apiService";
+import { getUserById , editUser } from "../../services/apiService";
 function EditUserPage(){
 const userId=useParams().id;
 const {editedAge,editedGender,editedPassword,editedUsername,setEditedAge,setEditedGender,setEditedPassword,setEditedUsername}=useContext(UserContext)
-
+const navigate=useNavigate()
 
 
 const setUserInfo=()=>{
@@ -24,9 +25,9 @@ useEffect(() => {
     const findUser = async () => {
         try {
             
-            const data = await findEditingUser(ctrl, userId);
+            const data = await getUserById(ctrl, userId);
               console.log(data)
-            setUserInfo(data);
+            
             setEditedUsername(data.username)
             setEditedPassword(data.password)
             setEditedGender(data.gender)
@@ -43,7 +44,7 @@ useEffect(() => {
     findUser();
     
     return () => ctrl.abort();
-}, [userId]);
+}, []);
 
 
     return(
@@ -51,7 +52,8 @@ useEffect(() => {
             try{
                 const user=setUserInfo();
                 const ctrl = new AbortController();
-            await editUser(ctrl,user,userId)
+            await editUser(ctrl,user,userId);
+            navigate("/UserLIst")
             }catch(err){
                 console.log(err.message)
             }
